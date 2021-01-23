@@ -1,0 +1,48 @@
+td {
+	border: 1px solid black;
+	width: 40px;
+	height: 40px;
+	font-size: 30px;
+	text-align: center;
+
+}
+
+table{
+	margin: auto;
+	border: 3px solid black;
+}
+
+h1{
+	text-align:center;
+	background-color: RGB(249, 59, 39); 
+}
+
+.knownTomato {
+	background-size: 45px 45px;
+	background-image: url("tomato.png");
+
+}
+
+.knownClear {
+
+}
+
+.unknownTomato {
+	background-size: 45px 45px;
+	background-image: url("blank.gif"); 
+}
+
+.unknownClear {
+	background-size: 45px 45px;
+	background-image: url("blank.gif"); 
+}
+
+.unknownTomato:hover {					/*highlight cell*/
+	background-size: 45px 45px;
+	background-image: url("open.gif"); 
+}
+
+.unknownClear:hover {					/*highlight cell*/
+	background-size: 45px 45px;
+	background-image: url("open.gif"); 
+}
