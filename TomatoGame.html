@@ -11,7 +11,7 @@ October 19, 2017
 		<link rel="stylesheet" type="text/css" href="TomatoGame.css">
 		<script type="text/javascript">
 			
-			// Function which makes a 
+			// Function which takes in a size from the user and makes a table of cells for the game board
 			function makeTable(size)
 			{
 				document.write("<table>")	// Dynamically create javascript table
@@ -51,7 +51,8 @@ October 19, 2017
 						totalCells--;
 					}	
 
-					else{
+					else
+					{
 						count--;
 					}	
 				}
@@ -60,24 +61,21 @@ October 19, 2017
 			// Function to check for surrounding tomatoes
 			function surroundingTomatoes(x,y)
 			{	
-
 				var min = 0;
 				var max = size;
-
 
 				if(x<min || y<min || x>max-1 || y>max-1)
 				{
 					return 0;		
 				}
 
-
 				else if (document.getElementById("cell" + x + "x" + y).className == "unknownTomato")	// If cell is a tomato return 1 and if not return 0
 				{
-					
 					return 1;		
 				} 
 
-				else{
+				else
+				{
 					return 0;
 				}
 			}
@@ -105,9 +103,8 @@ October 19, 2017
 				alert("Game Over");
 				document.location.reload();
 			}
-
-		
 			
+			// Function to handle game logic when a cell is clicked
 			function process(element)
 			{	
 				
