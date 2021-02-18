@@ -7,53 +7,44 @@ October 19, 2017
 <!DOCTYPE html>
 
 <html>
-
 	<head>
-
 		<link rel="stylesheet" type="text/css" href="TomatoGame.css">
-
 		<script type="text/javascript">
-
-
+			
+			// Function which makes a 
 			function makeTable(size)
 			{
-
-				document.write("<table>")		//dynamically make javascript table
+				document.write("<table>")	// Dynamically create javascript table
 				
-				for(i=0; i<size; i++)
+				for(i=0; i<size; i++)		// Make cells based on size of board
 				{
 					document.write("<tr>");
 
-					for(j=0; j<size; j++)
+					for(j=0; j<size; j++)	
 					{
-
 						var tempName = "cell" + i + "x" + j;
 						
-						addEventListener("click", clicked, false);	//adds event listener for clicked to each cell
+						addEventListener("click", clicked, false);	// Add event listener to each cell to check for mouse clicks
 
-						document.write("<td id=\""+tempName+"\"class=\"unknownClear\">"+"</td>");
-						
+						document.write("<td id=\""+tempName+"\"class=\"unknownClear\">"+"</td>");		
 					}
 				}
 			}
 
-
+			// Function which takes in a number of tomatoes to place and randomly places them on the board
 			function hideTomatoes(numTomatoes)
 			{
 
 				for (var count = 0; count < numTomatoes; count++)
 				{	
-
-					var randX = parseInt(Math.random()*size);		//get a random x,y number between 1 and size 
+					var randX = parseInt(Math.random()*size);		// Get a random x and y values between 1 and the size of the board
 					var randY = parseInt(Math.random()*size);
 					
-					var randCell = "cell" + randX + "x" + randY;
-					
+					var randCell = "cell" + randX + "x" + randY;		
 					
 					var unkTomato = document.getElementById(randCell).className;
 
-
-					if (unkTomato != "unknownTomato")				//if random cell is not already a tomato, place tomato and reduce count
+					if (unkTomato != "unknownTomato")				// If random cell is not already a tomato, place tomato and reduce tomato count
 					{
 						document.getElementById(randCell).className = "unknownTomato";
 						unkTomato = "unknownTomato";
@@ -66,7 +57,7 @@ October 19, 2017
 				}
 			}
 
-			
+			// Function to check for surrounding tomatoes
 			function surroundingTomatoes(x,y)
 			{	
 
@@ -80,7 +71,7 @@ October 19, 2017
 				}
 
 
-				else if (document.getElementById("cell" + x + "x" + y).className == "unknownTomato")	//if cell is a tomato return 1 else 0
+				else if (document.getElementById("cell" + x + "x" + y).className == "unknownTomato")	// If cell is a tomato return 1 and if not return 0
 				{
 					
 					return 1;		
@@ -91,15 +82,14 @@ October 19, 2017
 				}
 			}
 		
-
+			// Function which processes clicks. If an unknown tomato is clicked, end the game and if not wait for next mouse click.
 			function clicked(event)
 			{	
-				if (event.target.className == "unknownTomato")	//if clicked an unknown tomato, end game, otherwise process with current cell
+				if (event.target.className == "unknownTomato")	// If an unknown tomato is clicked, end game, otherwise process with current cell
 				{
 					event.target.className = "knownTomato";
 					document.getElementById("bottomH1").innerHTML = "Game Over!";
 					gameEnd();	
-						
 				}
 
 				else
@@ -108,8 +98,8 @@ October 19, 2017
 				}
 					
 			}
-
 			
+			// Function to handle ending game 
 			function gameEnd()
 			{
 				alert("Game Over");
@@ -121,7 +111,7 @@ October 19, 2017
 			function process(element)
 			{	
 				
-				if (element != null && element.className == "unknownClear")	//if element is on grid and hasn't already been cleared, clear the cell
+				if (element != null && element.className == "unknownClear")	// If element is on grid and hasn't already been cleared, clear the cell
 				{
 					
 					element.className = "knownClear";
@@ -131,7 +121,7 @@ October 19, 2017
 					document.getElementById("bottomH1").innerHTML = numTomatoes + " tomatoes, " + totalCells + " empty squares left";
 				
 
-					if (element.id.substring(6,7) == "x" && element.id.length == 8)			//check if clicked cell is a 10x1 
+					if (element.id.substring(6,7) == "x" && element.id.length == 8)			// Check if clicked cell is a 10x1 
 					{
 						var row = element.id.substring(4,6);
 						var column = element.id.substring(7);
@@ -139,7 +129,7 @@ October 19, 2017
 					}  
 
 					
-					else if(element.id.substring(6,7) == "x" && element.id.length == 9)		//check if clicked cell is a 10x10
+					else if(element.id.substring(6,7) == "x" && element.id.length == 9)		// Check if clicked cell is a 10x10
 					{
 						var row = element.id.substring(4,6);
 						var column = element.id.substring(7,9);
@@ -147,7 +137,7 @@ October 19, 2017
 					}	
 					
 					
-					else if(element.id.substring(5,6) == "x" && element.id.length == 8)		//check if clicked cell is a 1x10
+					else if(element.id.substring(5,6) == "x" && element.id.length == 8)		// Check if clicked cell is a 1x10
 					{
 						var row = element.id.substring(4,5);
 						var column = element.id.substring(6,8);
@@ -155,18 +145,17 @@ October 19, 2017
 					}
 
 					
-					else if(element.id.substring(5,6) == "x" && element.id.length == 7)		//check if clicked cell is a 1x1
+					else if(element.id.substring(5,6) == "x" && element.id.length == 7)		// Check if clicked cell is a 1x1
 					{
 						var row = element.id.substring(4,5);
 						var column = element.id.substring(6,7);
 	
 					}
-
 			
 					var row = parseInt(row, 10);
 					var column = parseInt(column, 10);
 				
-					var tomato1 = surroundingTomatoes(row-1, column-1);		//test all eight squares around the selected tomato
+					var tomato1 = surroundingTomatoes(row-1, column-1);		// Test all eight squares around the selected tomato
 					var tomato2 = surroundingTomatoes(row-1, column);
 					var tomato3 = surroundingTomatoes(row-1, column+1);
 					var tomato4 = surroundingTomatoes(row, column-1);
@@ -175,66 +164,63 @@ October 19, 2017
 					var tomato7 = surroundingTomatoes(row+1, column);
 					var tomato8 = surroundingTomatoes(row+1, column+1);
 
-
 					var surroundingTotal = tomato1 + tomato2 + tomato3 + tomato4 + tomato5 + tomato6 + tomato7 + tomato8;
-
-
+					
+					// Change colour of numbers based on number of tomatoes surrounding
 					if (surroundingTotal > 0)
 					{
-						if (surroundingTotal == 1)					//change colour of numbers based on number of surrounding tomatoes
+						if (surroundingTotal == 1)	// Change the numbers colours based on number of surrounding tomatoes
 						{
 							element.innerHTML = surroundingTotal;
 							element.style.color = "blue";	
 						}
 						
-						else if (surroundingTotal == 2)
+						else if (surroundingTotal == 2)	 	// Change number colour to green if there are two surrounding tomatoes
 						{
 							element.innerHTML = surroundingTotal;
 							element.style.color = "green";	
 						}
 
-						else if (surroundingTotal == 3)
+						else if (surroundingTotal == 3)		// Change number colour to red if there are three surrounding tomatoes
 						{
 							element.innerHTML = surroundingTotal;
 							element.style.color = "red";	
 						}
 
-						else if (surroundingTotal == 4)
+						else if (surroundingTotal == 4)		// Change number colour to purple if there are four surrounding tomatoes
 						{
 							element.innerHTML = surroundingTotal;
 							element.style.color = "purple";	
 						}
 
-						else if (surroundingTotal == 5)
+						else if (surroundingTotal == 5)		// Change number colour to dark red if there are five surrounding tomatoes
 						{
 							element.innerHTML = surroundingTotal;
 							element.style.color = "dark red";	
 						}
 
-						else if (surroundingTotal == 6)
+						else if (surroundingTotal == 6)		// Change number colour to light blue if there are six surrounding tomatoes
 						{
 							element.innerHTML = surroundingTotal;
 							element.style.color = "light blue";	
 						}
 
-						else if (surroundingTotal == 7)
+						else if (surroundingTotal == 7)		// Change number colour to dark purple if there are seven surrounding tomatoes
 						{
 							element.innerHTML = surroundingTotal;
 							element.style.color = "dark purple";	
 						}
 
-						else if (surroundingTotal == 8)
+						else if (surroundingTotal == 8)		// Change number colour to light green if there are eight surrounding tomatoes
 						{
-							element.innerHTML = surroundingTotal;
+							element.innerHTML = surroundingTotal;		
 							element.style.color = "light green";	
 						}
-
 					}
-
 					
 					else
 					{
-						var square1 = document.getElementById("cell" + (row-1) + "x" + (column-1)); //getElementbyId(x-1,y-1)
+						var square1 = document.getElementById("cell" + (row-1) + "x" + (column-1));	 // getElementbyId(x-1,y-1)
 
 						var square2 = document.getElementById("cell" + (row-1) + "x" + (column));
 					
@@ -271,37 +257,32 @@ October 19, 2017
 			}
 			
 		</script>
-
 	</head>
 
 	<body>
-
 		<h1>Clear the field without selecting tomatoes</h1>
-
+		
 		<h1 id="bottomH1"></h1>		
 
 		<script type="text/javascript">
 
-			size = prompt('Please enter the size of board');
+			size = prompt('Please enter the size of board');	// Prompt user for board size
 
-			size = parseInt(size, 10);
+			size = parseInt(size, 10);	
 
-			var numTomatoes = prompt('Please enter the number of tomatoes to place.')
+			var numTomatoes = prompt('Please enter the number of tomatoes to place.')	// Prompt user for number of tomatoes to place
 
-			numTomatoes = parseInt(numTomatoes, 10);
+			numTomatoes = parseInt(numTomatoes, 10);		
 
-			totalCells = size*size;
+			totalCells = size*size;		// Total number of cells on board
 
 			totalCells = parseInt(totalCells);
 
-			makeTable(size);		//call make a table function and input size
-
-			hideTomatoes(numTomatoes);	//call function to hide tomatoes
+			makeTable(size);		// Call make a table function and input the size
 			
-			document.getElementById("bottomH1").innerHTML = numTomatoes + " tomatoes, " + totalCells + " empty squares left";	//header to record empty cells left
-
+			hideTomatoes(numTomatoes);	// Call function to hide tomatoes
+			
+			document.getElementById("bottomH1").innerHTML = numTomatoes + " tomatoes, " + totalCells + " empty squares left";	// Header to record empty cells left
 		</script>
-
 	</body>
-
 </html>
